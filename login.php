@@ -1,8 +1,6 @@
 <?php
 session_start();
 include ('database.php');
-$validEmail = 'tatlay@me.com';
-$validPassword = '1234';
 include('snippets/header.php');
 // if the user has submitted a form {
 if ($_POST) {
@@ -10,8 +8,9 @@ if ($_POST) {
 	if ($_POST['action'] === 'log in') {
 		$email = isset($_POST['email']) ? $_POST['email'] : null;
 		$password = isset($_POST['password']) ? $_POST['password'] : null;
+		
 		// if the email and password match{
-		if ($email === $validEmail && $password === $validPassword) {
+		if (verifyLoginDetails($email, $password)) {
 			// show a success message
 			include('snippets/login-success.php');
 			// show a log out button
@@ -19,7 +18,7 @@ if ($_POST) {
 			// remember that they are logged in
 			$_SESSION['are they logged in'] = true;
 		} else {
-			// show and error message
+			// show an error message
 			include('snippets/login-error.php');
 			// show the login form again.
 			include('snippets/login-form.php');

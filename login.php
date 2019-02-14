@@ -1,23 +1,47 @@
 <?php
+session_start();
 include ('database.php');
 $validEmail = 'tatlay@me.com';
 $validPassword = '1234';
-$logInStatus = false;
-if ($_POST){
-	$EMAIL = $_POST['email'];
-	$PASSWORD = $_POST['password'];
-}
-if ($_POST){
-	if ($validEmail === $EMAIL && $validPassword === $PASSWORD)
-	{
-		$logInStatus = true;
+include('snippets/header.php');
+// if the user has submitted a form {
+if ($_POST) {
+	// 	if the user has submitted the login form {
+	if ($_POST['action'] === 'log in') {
+		$email = isset($_POST['email']) ? $_POST['email'] : null;
+		$password = isset($_POST['password']) ? $_POST['password'] : null;
+		// if the email and password match{
+		if ($email === $validEmail && $password === $validPassword) {
+			// show a success message
+			include('snippets/login-success.php');
+			// show a log out button
+			include('snippets/logout-form.php');
+			// remember that they are logged in
+			$_SESSION['are they logged in'] = true;
+		} else {
+			// show and error message
+			include('snippets/login-error.php');
+			// show the login form again.
+			include('snippets/login-form.php');
+		}
 	}
+	// if the user submitted the log out form{
+	if ($_POST['action'] === 'log out') {
+		include('snippets/logout-success.php');
+		// forget that they are logged in
+		$_SESSION['are they logged in'] = false;
+		// show the login form again.
+		include('snippets/login-form.php');
+	}
+} else if (isset($_SESSION['are they logged in']) && $_SESSION['are they logged in'] === true) {
+	// else if the user is already logged in 
+	// show the welcome back message
+	include('snippets/welcome-back.php');
+	// show a log out button
+	include('snippets/logout-form.php');
+} else {
+	// show the login form again.
+	include('snippets/login-form.php');
 }
-if ($logInStatus !== true){
-	echo "You are not logged in";
-	include('inputbox.php');
-	}else{
-	echo "<h1>Welcome to the Jungle</h1>";
-	include ('success.php');
-}
+include('snippets/footer.php');
 ?>

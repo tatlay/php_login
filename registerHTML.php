@@ -17,7 +17,7 @@
 			<input type="password" name="password" placeholder="Choose a password" style=" padding: 5px;"/>
 
 <br>			<label>Confirm Password</label>
-<br>			<input type="password" name="confirmPassword" placeholder="Enter choosen password" style=" padding: 5px;"/>
+<br>			<input type="password" name="confirmPassword" placeholder="Confirm password" style=" padding: 5px;"/>
 		</div>
 		<div>		
 		<button type="submit" value="submit">Register </button>

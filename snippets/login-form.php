@@ -10,3 +10,4 @@
 	<button type="submit" value="log in" name="action">Log in</button>
 	</div>
 </form>
+<a href="register.php">Register</a>
